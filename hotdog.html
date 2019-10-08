@@ -58,7 +58,7 @@
 				quantity[item] = document.getElementById(item).value
 				if (quantity[item] > 0)
 				{
-					alert_text += item + " Quantity: " + quantity[item] + "\n";
+					alert_text += item.replace("_", " ") + " Quantity: " + quantity[item] + "\n";
 				}
 			}
 			for (var key in prices)
@@ -93,7 +93,6 @@
 	</div>
 <script type="text/javascript">
 	generateForm(prices);
-	orginal=str.replace(/_/g, " ");
 </script>
 </body>
 </html>
