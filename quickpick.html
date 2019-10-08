@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>QuickPick</title>
+	<style type="text/css">
+		div.wrapper{
+			margin:auto;
+			padding-top: 50px;
+			width: 50%;
+			text-align: center;
+		}
+		input[type=text] {
+		  width: 25%;
+		  margin: auto;
+		  box-sizing: border-box;
+		}
+	</style>
+	<script type="text/javascript"> 
+		function checkNumbers (input_numbers, input_lucky_ball)
+		{
+			var winnings = " ";
+			var lb_text = " ";
+			matches = 0;
+			payout = ["$0","$0","$3","$20","$200","$25,000 a YEAR for LIFE!"];
+			lb_payout = ["$4","$6","$25","$150","$5,000","$7,000 a WEEK for LIFE!"];
+			input_numbers = input_numbers.split(" ");
+			input_numbers = arrayToInt(input_numbers);
+			input_lucky_ball = parseInt(input_lucky_ball);
+			matches = findMatches(input_numbers, winning_nums);
+			if (lucky_ball == input_lucky_ball)
+			{
+				winnings = lb_payout[matches]
+				lb_text = "and the lucky ball";
+			}
+			else
+			{
+				winnings = payout[matches]
+				lb_text = "and no lucky ball";
+			}
+
+			alert("Have " + matches + " matches " + lb_text + " won " + winnings);
+		}
+
+		function arrayToInt(array)
+		{
+			for (var i = array.length - 1; i >= 0; i--) 
+			{
+				array[i] = parseInt(array[i]);
+			}
+			array.sort(function(a, b){return a - b});
+			return array;
+		}
+		function findMatches(input_numbers, winning_nums) 
+		{
+			var matches = 0;
+			for (var i = 0; i < input_numbers.length; i++)
+			{
+				for (var j = 0; j < winning_nums.length; j++)
+				{
+					if (input_numbers[i] == winning_nums[j]) 
+					{
+						matches++;
+					}
+				}
+
+			}
+			return matches;
+		}
+	</script>
+</head>
+<body>
+	<div class = "wrapper">
+		<script language="javascript">
+			var winning_nums = new Array(5);
+			for (var i = 0; i < winning_nums.length; i++)
+			{
+				var x = Math.floor(Math.random() * 48) + 1;
+				while (winning_nums.includes(x))
+				{
+					x = Math.floor(Math.random() * 48) + 1;
+				}
+				winning_nums[i]=x;
+			}
+			var lucky_ball = Math.floor(Math.random() * 18) + 1;
+		///Print Array
+			document.write("<strong>QuickPick: </strong>");
+			for (var i = 0; i < winning_nums.length; i++)
+			{
+				document.write(winning_nums[i]+ " ");
+			}
+			document.write("<strong>Lucky Ball: </strong>");
+			document.write(lucky_ball);
+
+
+		//Sort Array
+			winning_nums.sort(function(a, b){return a - b});
+			document.write("<br>");
+			document.write("<strong>QuickPick: </strong>");
+			for (var i = 0; i < winning_nums.length; i++)
+			{
+				
+				document.write(winning_nums[i]+ " ");
+			}
+			document.write("<strong>Lucky Ball: </strong>");
+			document.write(lucky_ball);
+		</script>
+		<!--FORMS-->
+		<form>
+			<input type = "text" name ="input_numbers" placeholder="Enter your QuickPick Numbers">
+			<input type="text" name="input_lucky_ball" placeholder="Enter your Lucky Ball Number">
+			<input type="button" name="btn_submit" value="Submit" onclick="checkNumbers(input_numbers.value,input_lucky_ball.value)">
+		</form>
+	</div>
+</body>
+</html>

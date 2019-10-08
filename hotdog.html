@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Joe's Hotdogs</title>
+	<style type="text/css">
+		div.form_wrap{
+			margin:auto;
+			width: 25%
+		}
+		form{
+			display:flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			width:100%;
+			border: 2px solid blue;
+
+		}
+		label{
+			width: 50%;
+			//border: 2px solid red;
+			box-sizing: border-box;
+			text-align: right;
+			padding-right: 10px;
+		}
+		input[type=text]{
+			width: 50%;
+			//border:2px solid green;
+			box-sizing: border-box;
+		}
+		input[type=button]{
+			width: 100%;
+		}
+	</style>
+	<script type="text/javascript">
+		var prices = {Hotdog: 3.25, French_Fries: 2.00, Drink: 1.50};
+		var quantity = {Hotdog: 0, French_Fries: 0, Drink: 0};
+		function generateForm(array)
+		{
+			var form_data = "";
+			for (var key in array)
+			{
+				 form_data += "<label for ='" + key + "''>" + key.replace("_", " ") + ": $" + array[key] + "</label>";
+				 form_data += "<input type = text placeholder = Quantity name ='" + key + "'' id ='" + key + "''>";
+			}
+			form_data += "<input type = 'button' name= 'btn_order' value = 'Order' onclick=calcOrder() >"
+			document.getElementById("form1").innerHTML = form_data;
+		}
+		function calcOrder()
+		{
+			var subtotal = 0;
+			var total = 0;
+			var discount = false;
+			var discount_price = 0;
+			var tax = 0;
+			var alert_text="Items Bought: \n";
+			for (var item in quantity)
+			{
+				quantity[item] = document.getElementById(item).value
+				if (quantity[item] > 0)
+				{
+					alert_text += item + " Quantity: " + quantity[item] + "\n";
+				}
+			}
+			for (var key in prices)
+			{
+				subtotal += prices[key] * quantity[key];
+			}
+			if (subtotal >= 20)
+			{
+				discount = true;
+				discount_price = .10 * subtotal;
+			}
+			tax = .0625 * (subtotal - discount_price);
+			total = subtotal - discount_price + tax;
+			alert_text +="Subtotal: $" + subtotal + "\n";
+			if (discount){
+				alert_text += "10% Discount: -$" + discount_price.toFixed(2) + "\n";
+			}
+			alert_text +="Tax: $" + tax.toFixed(2) + "\n" + "Total: $" + total.toFixed(2); 
+			alert(alert_text);
+
+
+
+
+
+		}
+	</script>
+</head>
+<body>
+	<div class="form_wrap">
+		<form id="form1">
+		</form>
+	</div>
+<script type="text/javascript">
+	generateForm(prices);
+	orginal=str.replace(/_/g, " ");
+</script>
+</body>
+</html>
